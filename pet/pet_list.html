@@ -1,6 +1,17 @@
 <html>
 	<head></head>
 	<body>
-		<h1>{{ greeting }}</h1>
+		<ul>
+			{% for pet in pets %}
+				<li>
+					<h3>{{ pet.name }}</h3>
+					{{ pet.status }} --- ({{ pet.category.name }}), [{% for tag in pet.tagsl %}{{ tag.name }}, {% endfor %}]
+				</li>
+			{% endfor %}
+		</ul>
+		<form action="/pet" method="post">
+			{% csrf_token %}
+			<input type="submit" value="hahatsch" />
+		</form>
 	</body>
 </html>
