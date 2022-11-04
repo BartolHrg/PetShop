@@ -45,6 +45,38 @@
 				}).then( () => location.reload() );
 			}
 		</script>
+		<script>
+			const tags = [{% for tag in tags %} {{"{"}} id: {{ tag.id }}, name: "{{ tag.name }}", {{"}"}}, {% endfor %}];
+			const categories = [{% for category in categories %} {{"{"}} id: {{ category.id }}, name: "{{ category.name }}", {{"}"}}, {% endfor %}];
+			
+			const tag_filter      = [/* Map< {id: int, include: bool} > */];
+			const category_filter = [/* Map< {id: int, include: bool} > */];
+			
+			function toggleFilter(list, i, j, id) {
+				
+			}
+			function addFilter(list, html_container_id) {
+				
+			}
+			function stringifyFilter(list, name) {
+				
+			}
+			function applyFilters() {}
+		</script>
+		<div>
+			<h2>Filters</h2>
+			<div>
+				<h3>Tags</h3>
+				<div id="tags_filter_container"></div>
+				<input type="button" value="add" onclick="addFilter(tag_filter, 'tags_filter_container')" />
+			</div>
+			<div>
+				<h3>Categories</h3>
+				<div id="categories_filter_container"></div>
+				<input type="button" value="add" onclick="addFilter(tag_filter, 'categories_filter_container')" />
+			</div>
+			<input type="button" value="apply filters" onclick="applyFilters()" />
+		</div>
 		<ul>
 			{% for pet in pets %}
 				<li>
