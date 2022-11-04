@@ -50,7 +50,7 @@
 				<li>
 					<div id="pet-{{ pet.id }}-about">
 						<h3>{{ pet.name }}</h3>
-						{{ pet.status }} --- ({{ pet.category.name }}), [{% for tag in pet.tags %}{{ tag.name }}, {% endfor %}]
+						{{ pet.status }} --- ({{ pet.category.name }}) --- [{% for tag in pet.tags %}{{ tag.name }}, {% endfor %}]
 					</div>
 					<div id="pet-{{ pet.id }}-form" style="display: none;">
 						{% comment %} style="display: none;" {% endcomment %}
