@@ -19,7 +19,7 @@ pass
 class PetSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = Pet;
-		fields = ["id", "name", "category", "tags", "photo_url__url", "status"];
+		fields = ["id", "name", "category", "tags", "status"]; # "photo_url__url", # for some reason, it doesn't work
 	pass
 pass
 
