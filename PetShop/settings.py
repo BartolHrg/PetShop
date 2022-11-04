@@ -38,6 +38,7 @@ INSTALLED_APPS = [
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
 	"pet",
+	"api",
 ]
 
 MIDDLEWARE = [
@@ -66,6 +67,9 @@ TEMPLATES = [
 				'django.contrib.auth.context_processors.auth',
 				'django.contrib.messages.context_processors.messages',
 			],
+			'libraries':{
+				'django_template_language_is_shit': 'pet.templatetags.django_template_language_is_shit',
+			}
 		},
 	},
 ]
