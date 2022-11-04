@@ -1,0 +1,91 @@
+{% load django_template_language_is_shit %}
+
+<html>
+	<head></head>
+	{% comment %} const id = Number(this.dataset.category); {% endcomment %}
+	<body>
+		<script>
+			function getCookie(name) {
+				var cookieValue = null;
+				if (document.cookie && document.cookie !== '') {
+					var cookies = document.cookie.split(';');
+					for (var i = 0; i < cookies.length; i++) {
+						var cookie = (cookies[i] + "").trim();
+						// Does this cookie string begin with the name we want?
+						if (cookie.substring(0, name.length + 1) === (name + '=')) {
+							cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+							break;
+						}
+					}
+				}
+				return cookieValue;
+			}
+			
+			
+			function openEdit(id) {
+				const about = document.getElementById(`category-${id}-about`);
+				const form  = document.getElementById(`category-${id}-form`);
+				about.style.display = "none";
+				form .style.display = "";
+			}
+			function cancelUpdate(id) {
+				const about = document.getElementById(`category-${id}-about`);
+				const form  = document.getElementById(`category-${id}-form`);
+				about.style.display = "";
+				form .style.display = "none";
+			}
+			function deletePet(id) {
+				const csrftoken = getCookie('csrftoken');
+				
+				fetch(`/category/${id}`, { 
+					method: "DELETE", 
+					headers: {
+						"X-CSRFToken": csrftoken,
+					}
+				}).then( () => location.reload() );
+			}
+		</script>
+		<ul>
+			{% for category in categories %}
+				<li>
+					<div id="category-{{ category.id }}-about">
+						<h3>{{ category.name }}</h3>
+					</div>
+					<div id="category-{{ category.id }}-form" style="display: none;">
+						{% comment %} style="display: none;" {% endcomment %}
+						<form action="/category/{{ category.id }}" method="POST">
+							{% csrf_token %}
+							<h3>Update {{ category.name }}</h3>
+							
+							<table>{{ individual_forms|return_item:category.id }}</table>
+							
+							<div>
+								<input type="button" value="cancel" onclick="cancelUpdate({{ category.id }})" />
+								<input type="submit" value="update" />
+							</div>
+							<input type="text" name="location" class="location" hidden />
+						</form>
+					</div>
+					<div>
+						<input type="button" onclick="openEdit ({{ category.id }})" data-category="{{ category.id }}" value="Edit"    />
+						<input type="button" onclick="deletePet({{ category.id }})" data-category="{{ category.id }}" value="Delete"  />
+					</div>
+				</li>
+			{% endfor %}
+		</ul>
+		<form action="/category" method="post">
+			{% csrf_token %}
+			<h2>Insert a new category</h2>
+			
+			<table>{{ new_category_form }}</table>
+			
+			<input type="submit" value="add" />
+			<input type="text" name="location" class="location" hidden />
+		</form>
+		<script>
+			for (const el of document.querySelectorAll("form input.location")) {
+				el.value = location.pathname;
+			}
+		</script>
+	</body>
+</html>

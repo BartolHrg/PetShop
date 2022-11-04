@@ -26,6 +26,12 @@ urlpatterns = [
 	# path("pet/update", pet.views.petUpdate),
 	path("pet/<int:id>", pet.views.PetById.as_view()),
 	
+	path("tag", pet.views.Tag.as_view()),
+	path("tag/<int:id>", pet.views.TagById.as_view()),
+	
+	path("category", pet.views.Category.as_view()),
+	path("category/<int:id>", pet.views.CategoryById.as_view()),
+	
 	path("api/", include(api.urls)),
 ]
 

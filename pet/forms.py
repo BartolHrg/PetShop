@@ -45,3 +45,17 @@ class PetForm(NewPetForm):
 		return form;
 	pass
 pass
+
+class TagForm(forms.ModelForm):
+	class Meta:
+		model = Tag;
+		fields = ["id", "name"];
+	pass
+pass
+
+class CategoryForm(forms.ModelForm):
+	class Meta:
+		model = Category;
+		fields = ["id", "name"];
+	pass
+pass
